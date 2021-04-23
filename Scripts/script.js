@@ -42,7 +42,7 @@ function sleep(ms) {
 
 //wait for the DOM to load, then initialize DOM variables
 document.addEventListener('DOMContentLoaded', (event) => {
-    //loading spinners
+    //loading spinner
     spinner = document.getElementById("spinnercontainer");
     spinnerimg = document.querySelector("#initialspinner img");
     spinnertext = document.querySelector("#initialspinner h2");
@@ -169,18 +169,24 @@ function getCoinStats(){
 }
 
 //function for formatting market cap of coins
-function formatMarketCap(marketCap,formatPrice){
+function formatMarketCap(marketCap){
     let capFormat = marketCap + "";
     let j = capFormat.length-3;
-    if(formatPrice)
-    {
-        capFormat = capFormat.replace(".","");
-    }
     for(; j>=1;j-=3)
     {
         capFormat = capFormat.substr(0,j) + ',' + capFormat.substr(j,capFormat.length);
     }
     return capFormat + '$';
+}
+
+function formatResultPrice(marketCap){
+    let priceFormat = marketCap + "";
+    let j = priceFormat.length-6;
+    for(; j>=1;j-=3)
+    {
+        priceFormat = priceFormat.substr(0,j) + ',' + priceFormat.substr(j,priceFormat.length);
+    }
+    return priceFormat + '$';
 }
 
 //onChange event for BTC checkmark
@@ -224,7 +230,6 @@ function countDesiredCap(){
             desiredCapNum = coinList[marketCapSelector.value-1].market_cap;
         }
 
-        console.log(desiredCapNum);
         if(trackBTC && btcPriceInput.value!==0)
         {
             let BTCmultiplier;
@@ -234,6 +239,7 @@ function countDesiredCap(){
             desiredCapNum *= btcMultiplier;
         }
         desiredCap.value = formatMarketCap(desiredCapNum);
+        console.log(desiredCapNum);
     }
 }
 
@@ -249,10 +255,14 @@ function addEvents(){
 
 function MoonmathCalculation(){
     let result;
-    let wantedCap = desiredCap.value.replaceAll(",","").replaceAll("$","");
-    let multiplier = wantedCap / chosenCoin.market_cap;
-    result = Math.round(chosenCoin.current_price * multiplier*100)/100;
-    moontext.innerText = formatMarketCap(result,true);
+    let wantedCap = parseInt(desiredCap.value.replaceAll(",","").replaceAll("$","").replaceAll(".",""), 10);
+    console.log("wantedcapmoon" + wantedCap); 
+    let multiplier = Math.round((wantedCap / chosenCoin.market_cap)*100);
+    console.log(multiplier);
+    let formattedPrice = Math.round(chosenCoin.current_price*100);
+    result = (formattedPrice * multiplier)/10000;
+    moontext.innerText = formatResultPrice(result.toFixed(2));
+    console.log("result"+ result);
 }
 
 // checking the server here, initializing form
