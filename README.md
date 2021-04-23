@@ -1,5 +1,5 @@
 This is a repo of calculators for cryptocurrencies which i created
-Big shotout to Cultivate Crypto gang
+Big shoutout to Cultivate Crypto gang
 
 
 Currently available:
