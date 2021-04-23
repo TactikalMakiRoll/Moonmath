@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Styles/normalize.css">
+    <link rel="stylesheet" href="../Styles/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Comic+Neue:wght@400;700&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="../Scripts/script.js"></script>
+    <title>Moonmath calculator</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Moonmath calculator</a></li>
+            <!-- <li><a href="hopium.html">Hopium calculator (not ready yet)</a></li> -->
+        </ul>
+    </nav>
+    <h1 id="name">Moonmath calculator</h1>
+    <div id="inputs">
+        <section>
+            <p id="coinselect">
+                <label for="coin">Choose a coin - </label>
+                <select name="coin" id="coinselector">
+                    <option name="empty" id="empty"></option>
+                </select>
+                <!-- <div id="beginnersContainer">
+                    <div id="beginnersChild">
+                        <button>CEL</button>
+                        <button>CEL</button>
+                        <button>CEL</button>
+                        <button>CEL</button>
+                        <button>CEL</button>
+                    </div>
+                </div> -->
+            </p>
+
+            <p>
+                <label for="marketcapplace">Choose desired place on CoinGecko - </label>
+                <input type="number" placeholder="0" min="1" max="100" id="marketcapplace" name="marketcapplace">
+            </p>  
+
+            <p>
+                Track potential BTC upside?
+                <label class="BtcUpsidecontainer"> 
+                    <input type="checkbox" id="trackBTC">
+                    <span class="checkmark"></span>
+                </label>
+            </p>
+
+            <p id="BtcPotential">
+                <label for="BTCtrack">Potential BTC price - </label>
+                <input type="text" id="BTCtrackprice" name="BTCtrack" 
+                placeholder="click buttons below" min="1" readonly>
+            </p>
+            <div id="btcPotentialBtns">
+                <button>2x</button>
+                <button>3x</button>
+                <button>4x</button>
+                <button>5x</button>
+            </div>
+
+            <div id="wishedcapcontainer"><p>Desired market cap in USD: </p><input placeholder = "0$" type="text" id="wishedcapnum"></div>
+
+            <a id="calculatebtn">Calculate</a>
+        </section>
+        <section id="currnum">
+            <div>
+                <p>Current place on CoinGecko: <span id="currplace"></span></p>
+                <p>Current price: <span id="currprice"></span></p>
+                <p>Current market cap: <span id="currmarketcap"></span></p>
+            </div>
+            <div id="BTCcurrnum">
+                <p>BTC current price: <span id="BTCprice"></span></p>
+                <p>BTC market cap: <span id="BTCmarket"></span></p>
+            </div>
+        </section>
+    </div>
+    <h2 id="resultheader"> Calculated coin price </h2>
+    <h3 id="moonprice"></h3>
+
+    <div id="spinnercontainer">
+        <div id="initialspinner">
+            <img src="../Resources/Images/charlieserver.jpg" alt="loading data from server">
+            <h2>Loading</h2>
+        </div>
+    </div>
+
+    <!-- <div id="miguelspinner">
+        <img src="../Resources/Images/moonmathing.jpg" alt="moonmathing">
+        <h2>Market Cap...</h2>
+    </div> -->
+</body>
+</html>

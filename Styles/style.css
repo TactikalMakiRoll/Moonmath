@@ -1,0 +1,386 @@
+/* Full page styling*/
+html{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+body{
+    background:#181818;
+    color:white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* font-family: 'Comic Neue', cursive; */
+/* Navbar styling */
+nav{
+    max-inline-size:65%;
+    background: linear-gradient(90deg, rgba(70,7,97,1) 0%, rgba(168,35,35,1) 100%);
+    border-bottom-right-radius:50px;
+    border-bottom-left-radius:50px;
+}
+
+nav ul{
+    margin:0;
+    padding: 0 2em;
+    list-style-type: none;
+    display: flex;
+    font-size: 1.5rem;
+}
+
+nav ul li{
+    margin: 0 1rem;
+    font-weight: 700;
+    padding: 1rem 0;
+}
+
+nav ul li:last-child{
+    cursor: url(crosscursor.png);
+}
+
+nav ul li a{
+    text-decoration: none;
+    font-family: 'Bebas Neue', cursive;
+    color:white;
+    letter-spacing: 2px;
+}
+
+nav ul li a:hover{
+    background-color: lightblue;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#name{
+    font-size:3.5rem;
+}
+
+/* Calculator body */
+#inputs{
+    width:80%;
+    padding: 1rem 0 2rem 0;
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    text-align: left;
+}
+#inputs p{
+    margin:0 0 1.25em;
+}
+/* #coinselect{
+    display: inline-block;
+} */
+
+/* Beginners portfolio coins container */
+/* #beginnersContainer{
+    display: inline-block;
+}
+
+#beginnersChild{
+    display: none;
+}  */
+
+#beginnersChild button{
+    border:2px solid white;
+    margin-top:2rem;
+    background: rgb(77, 5, 107);
+    border-radius: 5px;
+    
+    color:white;
+    font-weight: bold;
+    font-size:1.15rem;
+    padding: 0.25em 0.5em;
+}
+
+#inputs section{
+    border:2px solid white;
+    padding:2rem;
+    background: rgb(43, 6, 59);
+}
+
+#inputs section:first-child{
+    flex-grow: 2;
+}
+
+#inputs section:last-child{
+    flex-grow: 1;
+}
+
+select,input{
+    color:white;
+    border: 2px solid #504d4d;
+    background-color: black;
+}
+
+/* Input side */
+#marketcapplace{
+    width:3rem;
+}
+
+input[type="checkbox"]{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.BtcUpsidecontainer{
+    position: relative;
+    padding-left:2rem;
+    margin-right:1rem;
+}
+
+.checkmark{
+  position: absolute;
+  top: -0.2rem;
+  left: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: black;
+  border: 2px solid #504d4d;
+}
+
+input[type="checkbox"]:hover ~ .checkmark{
+    background-color:rgb(105, 107, 109)
+}
+
+input[type="checkbox"] ~ .checkmark::after{
+    content:"";
+    display: none; 
+    position: absolute;
+    width: 0.3rem;
+    height: 0.5rem;
+    border-width: 0 3px 3px 0;
+    left: 0.5rem;
+    top: 0.3rem;
+    border-color:white;
+    border-style: solid;
+    transform: rotate(35deg);
+}
+input[type="checkbox"]:checked ~ .checkmark::after{
+    display: block;
+}
+
+/* BTC upside inputs */
+#BtcPotential{
+    display: none;
+    align-items: center;
+}
+#btcPotentialBtns{
+    display: none;
+    margin-bottom:1rem;
+}
+
+#BtcPotential input{
+    margin-left: 0.5rem;
+}
+
+#BtcPotential input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+#btcPotentialBtns button{
+    padding: 0.5em;
+    color:#a88115;
+    border: 2px solid #504d4d;
+    background-color: black;
+    margin-right:0.3rem;
+}
+
+#btcPotentialBtns button:hover{
+    cursor:pointer;
+    color:#ebb114;
+}
+
+/* Current values side */
+#currnum span{
+    color:rgb(116, 120, 124);
+}
+
+#currnum p{
+    width:100%;
+}
+
+#BTCcurrnum{
+    margin-top:1rem;
+    display: none;
+}
+
+#wishedcapcontainer{
+    margin-bottom:1.5rem;
+}
+
+#wishedcapcontainer p {
+    display: inline-block;
+    color:#797979;
+    margin:0;
+}
+
+#wishedcapnum{
+    margin-left: 0.3rem;
+}
+
+#calculatebtn{
+    font-size:1.3rem;
+    padding: 0.5em 1em;
+    text-align: center;
+    display: block;
+    color:white;
+    cursor: pointer;
+    border-radius: 20px;
+    border:1px solid white;
+    /* font-family: 'Comic Neue', cursive; */
+    background: linear-gradient(90deg, rgba(70,7,97,1) 0%, rgba(168,35,35,1) 100%);
+}
+
+/* Results part */
+#resultheader{
+    font-size:2.75rem;
+    margin:0;
+    background: linear-gradient(90deg, rgba(244,7,7,1) 0%, rgba(255,126,0,1) 12%, rgba(255,236,2,1) 28%, rgba(27,227,8,1) 44%, rgba(20,222,223,1) 60%, rgba(32,88,247,1) 79%, rgba(238,8,223,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+#resultheader::before{
+    content:"";
+    position: absolute;
+    width:0.2em;
+    height:1em;
+    border-width:0 5px 0 5px;
+    border-style:solid;
+    border-color:white;
+    transform: rotate(-45deg);
+    top:1.5em;
+    left:1.8em;
+}
+#resultheader::after{
+    content:"";
+    position: absolute;
+    width:0.2em;
+    height:1em;
+    border-width:0 5px 0 5px;
+    border-style:solid;
+    border-color:white;
+    transform: rotate(45deg);
+    top:1.5em;
+    left:6em;
+}
+
+#moonmathresults{
+    display: none;
+}
+
+#moonprice{
+    font-size:2.75rem;
+    margin-top:5rem;
+    color:rgb(124, 187, 31);
+}
+
+/* initial loading spinner */
+#spinnercontainer{
+    width:100vw;
+    height:100vh;
+    position: fixed;
+    background: #181818;
+}
+
+#initialspinner{
+    border:2px solid white;
+    background: rgb(47, 5, 65);
+    font-size:2rem;
+
+    max-width:450px;
+
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#initialspinner img{
+    max-width: 100%;
+}
+
+@keyframes dissapear { 
+    50% {
+        opacity: 1;
+    } 
+    100%{
+        opacity: 0;
+    }
+}
+
+/* moonmathing spinner */
+
+/* #miguelspinner{
+    max-width: 450px;
+    border:2px solid white;
+    background: #181818;
+    font-size:1.5rem;
+    position:absolute;
+    top:0;
+    left:0;
+    animation: moonmathingTL-DR 3s ease-in-out forwards;
+}
+
+#miguelspinner img{
+    max-width: 100%;
+}
+
+@keyframes moonmathingTL-DR { 
+    50%{
+        opacity: 0.6;
+    }
+    100%{
+        top:100vh;
+        left:100vw;
+        opacity: 0;
+    }
+} */
+
+
+/* Media queries for responesiveness */
+@media (min-width: 1400px) {
+    #inputs{
+        width:65%;
+    }
+}
+@media (min-width: 1800px) {
+    #inputs{
+        width:55%;
+    }
+}
+@media (max-width: 1024px) {
+    #inputs{
+        flex-direction: column;
+        text-align: center;
+    }
+    #BtcPotential{
+        justify-content: center;
+    }
+    #BTCcurrnum p:last-child{
+        margin-bottom: 0;
+    }
+}
+@media (max-width: 768px) {
+    html{
+        font-size:14px;
+    }
+}
+@media (max-width: 545px) {
+    html{
+        font-size:12px;
+    }
+    #inputs{
+        width:100%;
+    }
+}
+@media (max-width: 365px) {
+    html{
+        font-size:10px;
+    }
+}
