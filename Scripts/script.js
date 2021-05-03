@@ -3,6 +3,9 @@ let APILinkStart = "https://api.coingecko.com/api/v3";
 
 // future list of coins taken from coinGecko
 let coinList = {};
+let stableCoinList = ["USDT","USDC","WBTC","BUSD","DAI",
+                      "UST","RSR","PAX","HUSD","TUSD",
+                      "USDN","FEI"];
 
 // DOM variables
 let coinSelector;
@@ -50,7 +53,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     //inputs
     coinSelector = document.getElementById("coinselector");
-    marketCapSelector = document.getElementById("marketcapplace");
+    wantedPlaceSelector = document.getElementById("marketcapplace");
     checkTrackBTC = document.getElementById("trackBTC");
 
     //market status texts
@@ -105,22 +108,31 @@ function status(result){//function for server status checking
     }
 }
 
-//get 1 page of 100 result of coins, sorted by market cap with price change percentage of 24h and price compared to usd
+//get 1 page of 250 result of coins, sorted by market cap with price change percentage of 24h and price compared to usd
 function InitializeCoinList(list){
     //get /coins/
-    return fetch(APILinkStart + "/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h")
+    return fetch(APILinkStart + "/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=24h")
     .then(response=>{
         return response.json();
     })
     .then((list)=>{
-        console.log("Coins fetch result");
-        console.log(list);
-        coinList = list;
+        coinList = list.filter(isStable); // remove stables -- fix function not launchign
         InitializeForm();
     })
 }
 
-//put coin options into selector
+//function for filtering stablecoins out of coin list
+function isStable(coin){
+    for(let i=0;i<stableCoinList.length;i++){
+        if(coin.symbol.toUpperCase()===stableCoinList[i])
+        {
+            return false;
+        }  
+    }
+    return true;
+}
+
+//putting coin options into selector
 function InitializeForm(){
     for(let i=0;i<coinList.length;i++)
     {
@@ -139,14 +151,45 @@ function InitializeForm(){
     addEvents();
 }
 
-//replacing stats every time a new coin is chosen
+//clearing form
+function clearForm(){
+    wantedPlaceSelector.value = "";
+    moontext.innerText = "";
+    desiredCap.value = "";
+
+    lockCalculateBtn();
+}
+
+//changing calculate button styling upon data
+function lockCalculateBtn(){
+    calculatebtn.classList.add("calculate--disabled");
+    calculatebtn.classList.remove("calculate--enabled");
+}
+
+function unlockCalculateBtn(){
+    if(checkTrackBTC.checked)
+    {
+        if(btcPriceInput.value==="")
+            return;
+    }
+    calculatebtn.classList.add("calculate--enabled");
+    calculatebtn.classList.remove("calculate--disabled");
+}
+
+//Choosing a coin 
 function getCoinStats(){
     let name = coinSelector.selectedOptions[0].getAttribute("name");
     if(name==="empty")
     {
+        clearForm();
+        chosenCoin = null;
+
         coinCurrPlace.innerText = "";
         coinCurrPrice.innerText = "";
+        coinCurrCap.innerText = "";
 
+        wantedPlaceSelector.setAttribute("disabled","");
+        
         return;
     }
 
@@ -160,11 +203,13 @@ function getCoinStats(){
         }
     }
 
-    coinCurrPlace.innerText = coinPlace+1;
+    clearForm();
+    wantedPlaceSelector.removeAttribute("disabled");
+    coinCurrPlace.innerText = coinPlace + 1;
     coinCurrPrice.innerText = chosenCoin.current_price + "$";
     coinCurrCap.innerText = formatMarketCap(chosenCoin.market_cap);
 
-    marketCapSelector.setAttribute("max",coinPlace);
+    wantedPlaceSelector.setAttribute("max", coinPlace);
     countDesiredCap();
 }
 
@@ -179,6 +224,7 @@ function formatMarketCap(marketCap){
     return capFormat + '$';
 }
 
+//function for formatting resulting price
 function formatResultPrice(marketCap){
     let priceFormat = marketCap + "";
     let j = priceFormat.length-6;
@@ -211,6 +257,7 @@ function btcUpsideUpdate(){
     }
 }
 
+//BTC track buttons functionality
 function btcMultiplierBtnClick(){
     let capresult = coinList[0].current_price;
     capresult = capresult * (this.innerText.slice(0,-1));
@@ -220,14 +267,13 @@ function btcMultiplierBtnClick(){
 
 //count new market cap for your coin
 function countDesiredCap(){
-    if(chosenCoin)
+    if(chosenCoin && wantedPlaceSelector.value!=="")
     {
         let desiredCapNum = chosenCoin.market_cap;
-        console.log(desiredCapNum);
 
-        if(marketCapSelector.value!=0)
+        if(wantedPlaceSelector.value!=0)
         {
-            desiredCapNum = coinList[marketCapSelector.value-1].market_cap;
+            desiredCapNum = coinList[wantedPlaceSelector.value-1].market_cap;
         }
 
         if(trackBTC && btcPriceInput.value!==0)
@@ -238,34 +284,38 @@ function countDesiredCap(){
             btcMultiplier = BTCmultipliedPrice / (coinList[0].current_price);
             desiredCapNum *= btcMultiplier;
         }
+        unlockCalculateBtn();
+        moontext.innerText = "";
         desiredCap.value = formatMarketCap(desiredCapNum);
-        console.log(desiredCapNum);
     }
+    else{
+        desiredCap.value = "";
+    }
+}
+
+//Calculating resulting price
+function MoonmathCalculation(){
+    if(wantedPlaceSelector.value==="" || chosenCoin==null)
+        return;
+    let result;
+    let wantedCap = parseInt(desiredCap.value.replaceAll(",","").replaceAll("$","").replaceAll(".",""), 10);
+    let multiplier = Math.round((wantedCap / chosenCoin.market_cap)*100);
+    let formattedPrice = Math.round(chosenCoin.current_price*100);
+    result = (formattedPrice * multiplier)/10000;
+    moontext.innerText = formatResultPrice(result.toFixed(2));
 }
 
 //add events to input fields in form
 function addEvents(){
     coinSelector.onchange = getCoinStats;
-    marketCapSelector.onchange = countDesiredCap;
+    wantedPlaceSelector.onchange = countDesiredCap;
     checkTrackBTC.onchange = btcUpsideUpdate;
     for(let i=0;i<btcBtns.length;i++)
         btcBtns[i].onclick = btcMultiplierBtnClick;
     calculatebtn.onclick = MoonmathCalculation;
 }
 
-function MoonmathCalculation(){
-    let result;
-    let wantedCap = parseInt(desiredCap.value.replaceAll(",","").replaceAll("$","").replaceAll(".",""), 10);
-    console.log("wantedcapmoon" + wantedCap); 
-    let multiplier = Math.round((wantedCap / chosenCoin.market_cap)*100);
-    console.log(multiplier);
-    let formattedPrice = Math.round(chosenCoin.current_price*100);
-    result = (formattedPrice * multiplier)/10000;
-    moontext.innerText = formatResultPrice(result.toFixed(2));
-    console.log("result"+ result);
-}
-
-// checking the server here, initializing form
+// Starting point: checking the server here, initializing form
 checkServer().then(InitializeCoinList(),()=>{console.log("Service is unavailable")})
 
 

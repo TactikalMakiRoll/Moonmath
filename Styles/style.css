@@ -12,7 +12,6 @@ body{
     align-items: center;
 }
 
-/* font-family: 'Comic Neue', cursive; */
 /* Navbar styling */
 nav{
     max-inline-size:65%;
@@ -68,9 +67,29 @@ nav ul li a:hover{
 #inputs p{
     margin:0 0 1.25em;
 }
+
 /* #coinselect{
     display: inline-block;
 } */
+
+#coinselector{
+    width:7rem;
+}
+
+#coinselector::-webkit-scrollbar{
+    background-color: #181818;
+    width:30px;
+}
+
+#coinselector::-webkit-scrollbar-track {
+    border: rgb(180, 180, 180);
+    background-color: #202020;
+  }
+
+#coinselector::-webkit-scrollbar-thumb {
+    background-color: #5f5e5e;
+  }
+  
 
 /* Beginners portfolio coins container */
 /* #beginnersContainer{
@@ -117,6 +136,13 @@ select,input{
 #marketcapplace{
     width:3rem;
 }
+
+/* disabling arrows on desired place - not needed */
+/* #marketcapplace::-webkit-inner-spin-button, 
+#marketcapplace::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+} */
 
 input[type="checkbox"]{
     position: absolute;
@@ -196,7 +222,12 @@ input[type="checkbox"]:checked ~ .checkmark::after{
 
 /* Current values side */
 #currnum span{
-    color:rgb(116, 120, 124);
+    font-size:1.4rem;
+    font-weight: bold;
+}
+
+#currprice,#BTCprice{
+    color:rgb(10, 182, 10);
 }
 
 #currnum p{
@@ -214,7 +245,6 @@ input[type="checkbox"]:checked ~ .checkmark::after{
 
 #wishedcapcontainer p {
     display: inline-block;
-    color:#797979;
     margin:0;
 }
 
@@ -228,11 +258,19 @@ input[type="checkbox"]:checked ~ .checkmark::after{
     text-align: center;
     display: block;
     color:white;
-    cursor: pointer;
     border-radius: 20px;
     border:1px solid white;
-    /* font-family: 'Comic Neue', cursive; */
+}
+
+/* Class for disabling calculate button while form is not filled */
+.calculate--disabled{
+    background: linear-gradient(90deg, rgb(59, 59, 59) 0%, rgb(105, 105, 105) 100%);
+    cursor:url(../Resources/Images/crosscursor.png), not-allowed;
+}
+
+.calculate--enabled{
     background: linear-gradient(90deg, rgba(70,7,97,1) 0%, rgba(168,35,35,1) 100%);
+    cursor: pointer;
 }
 
 /* Results part */
@@ -314,35 +352,6 @@ input[type="checkbox"]:checked ~ .checkmark::after{
     }
 }
 
-/* moonmathing spinner */
-
-/* #miguelspinner{
-    max-width: 450px;
-    border:2px solid white;
-    background: #181818;
-    font-size:1.5rem;
-    position:absolute;
-    top:0;
-    left:0;
-    animation: moonmathingTL-DR 3s ease-in-out forwards;
-}
-
-#miguelspinner img{
-    max-width: 100%;
-}
-
-@keyframes moonmathingTL-DR { 
-    50%{
-        opacity: 0.6;
-    }
-    100%{
-        top:100vh;
-        left:100vw;
-        opacity: 0;
-    }
-} */
-
-
 /* Media queries for responesiveness */
 @media (min-width: 1400px) {
     #inputs{
@@ -354,7 +363,7 @@ input[type="checkbox"]:checked ~ .checkmark::after{
         width:55%;
     }
 }
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
     #inputs{
         flex-direction: column;
         text-align: center;

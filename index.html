@@ -22,7 +22,7 @@
     <div id="inputs">
         <section>
             <p id="coinselect">
-                <label for="coin">Choose a coin - </label>
+                <label for="coin">Choose a coin: </label>
                 <select name="coin" id="coinselector">
                     <option name="empty" id="empty"></option>
                 </select>
@@ -38,8 +38,8 @@
             </p>
 
             <p>
-                <label for="marketcapplace">Choose desired place on CoinGecko - </label>
-                <input type="number" placeholder="0" min="1" max="100" id="marketcapplace" name="marketcapplace">
+                <label for="marketcapplace">Choose desired place on CoinGecko: </label>
+                <input type="number" placeholder="0" min="1" max="100" id="marketcapplace" name="marketcapplace" disabled>
             </p>  
 
             <p>
@@ -51,7 +51,7 @@
             </p>
 
             <p id="BtcPotential">
-                <label for="BTCtrack">Potential BTC price - </label>
+                <label for="BTCtrack">Potential BTC price:</label>
                 <input type="text" id="BTCtrackprice" name="BTCtrack" 
                 placeholder="click buttons below" min="1" readonly>
             </p>
@@ -64,7 +64,7 @@
 
             <div id="wishedcapcontainer"><p>Desired market cap in USD: </p><input placeholder = "0$" type="text" id="wishedcapnum"></div>
 
-            <a id="calculatebtn">Calculate</a>
+            <a id="calculatebtn" class="calculate--disabled">Calculate</a>
         </section>
         <section id="currnum">
             <div>
@@ -87,10 +87,5 @@
             <h2>Loading</h2>
         </div>
     </div>
-
-    <!-- <div id="miguelspinner">
-        <img src="../Resources/Images/moonmathing.jpg" alt="moonmathing">
-        <h2>Market Cap...</h2>
-    </div> -->
 </body>
 </html>
