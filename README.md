@@ -7,7 +7,6 @@ Using list of top cryptocurrencies, it shows how much the price will increase fo
 
 ![Picture of a moonmath calculator](ReadMe/Moonmath.jpg)
 
-# [Update log]
 # Update v1.05
 - Style the scrollbar when choosing a coin 
 - Widening the list of coins from top 100 to top 250 
